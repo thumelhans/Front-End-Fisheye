@@ -8,7 +8,7 @@ class PhotographCard{
         container.classList.add("photographer", this._photograph.id)
 
         const photographCard = `
-            <a href=#>
+            <a href="photographer.html?id=${this._photograph.id}">
                 <img src="/assets/photographers/photographers_profil_picture/${this._photograph.portrait}" alt="">
                 <h2 class="photographer-name">
                     ${this._photograph.name}
@@ -21,5 +21,27 @@ class PhotographCard{
 
         container.innerHTML = photographCard
         return container
+    }
+
+    createProfile(querry){
+        const infoContainer = document.createElement('article')
+        const photoContainer = document.createElement('article')
+        
+        const photographInfoHTML = `
+            <h2 class="photographer-name">
+               ${this ._photograph.name}
+            </h2>
+            <p class="photographer-place">${this._photograph.city}, ${this._photograph.country}</p>
+            <p class="photographer-tagline">${this._photograph.tagline}</p>
+        `
+        const photographProfileImageHTML = `
+            <img src="/assets/photographers/photographers_profil_picture/${this._photograph.portrait}" alt="">
+        `
+        
+        infoContainer.innerHTML = photographInfoHTML
+        photoContainer.innerHTML = photographProfileImageHTML
+        
+        querry.append(photoContainer)
+        querry.prepend(infoContainer)
     }
 }

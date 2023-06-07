@@ -9,7 +9,9 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html">
+        <img src="assets/images/logo.png" class="logo" />
+      </a>
     </header>
     <main id="main">
       <div class="photograph-header">
@@ -31,7 +33,23 @@
 				</form>
 			</div>
 		</div>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
+
+     <!-- Models -->
+     <script src="scripts/models/photo.js"></script>
+     <script src="scripts/models/photographer.js"></script>
+ 
+     <!-- API -->
+     <script src="scripts/api/api.js"></script>
+ 
+     <!-- Factories -->
+     <script src="scripts/factories/photographFactory.js"></script>
+   
+     <!-- Templates -->
+     <script src="scripts/templates/photographerCard.js"></script>
+     <script src="scripts/templates/mediumCard.js"></script>
+ 
+     <!-- App -->
+     <script src="scripts/app.js"></script>
+     
   </body>
 </html>
