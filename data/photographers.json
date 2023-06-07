@@ -229,6 +229,15 @@
 			"price": 70
 		},
 		{
+			"id": 83958936,
+			"photographerId": 925,
+			"title": "Swimming butterfly",
+			"video": "Sport_Butterfly.jpg",
+			"likes": 42,
+			"date": "2016-06-15",
+			"price": 70
+		},
+		{
 			"id": 394583434,
 			"photographerId": 527,
 			"title": "Rocky mountains from the air",
@@ -309,7 +318,15 @@
 			"date": "2019-01-02",
 			"price": 45
 		},
-
+		{
+			"id": 525834235,
+			"photographerId": 527,
+			"title": "On the road",
+			"image": "Travel_On_The_Road.jpg",
+			"likes": 42,
+			"date": "2019-07-09",
+			"price": 45
+		},
 		{
 			"id": 623534343,
 			"photographerId": 243,
