@@ -2,8 +2,9 @@ class App {
     constructor(){
         this._locationUrl = window.location
         this._idUrl = this._locationUrl.search.split("=")
-        this._indexContainerQuerry = document.querySelector('.photographer_section')
-        this._photographerContainerQuerry = document.querySelector('.photograph-header')
+        this._indexContainerQuery = document.querySelector('.photographer_section')
+        this._photographerContainerQuery = document.querySelector('.photograph-header')
+        this._mediaContainerQuery = document.querySelector(".media-container")
         this._photographers = new PhotographerApi("/data/photographers.json")
         this._medium = new MediumApi("/data/photographers.json")
     }
@@ -15,26 +16,25 @@ class App {
         const photographers = photographerData.map(photograph => new PhotographFactory(photograph, 'photographers'))
         const medium = mediumData.map(media => new PhotographFactory(media, 'media'))
 
-        console.log(this._idUrl)
-
         photographers.forEach(photograph => {
             const template = new PhotographCard(photograph)
             if(this._locationUrl.pathname === "/index.html"){
-                this._indexContainerQuerry.appendChild(template.createCard())
+                this._indexContainerQuery.appendChild(template.createCard())
             }
             if(photograph._id === Number(this._idUrl[1])){
-                console.log("success")
-                console.log(photograph)
-                template.createProfile(this._photographerContainerQuerry)
+                template.createProfile(this._photographerContainerQuery)
             }
         });
 
+        let totalLikes = 0
         medium.forEach(element => {
+            const template = new MediumCard(element)
+            if(element.photographerId === Number(this._idUrl[1])){
+                this._mediaContainerQuery.appendChild(template.createCard())
+                totalLikes += element.likes
+            }
         });
-        console.log(this._locationUrl)
-
     }
-
 }
 
 const app = new App()
