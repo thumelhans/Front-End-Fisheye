@@ -9,6 +9,7 @@ class Api{
             .then(res => res.json())
             .catch(err => console.log('An error occured', err))
     }
+    
 }
 
 class PhotographerApi extends Api{

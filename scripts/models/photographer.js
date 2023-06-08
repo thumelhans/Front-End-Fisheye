@@ -6,7 +6,8 @@ class Photographer {
         this._country = data.country
         this._tagline = data.tagline
         this._price = data.price
-        this._portrait = data.portrait
+        this._portrait = data.portrait.split(".") //TODO Pourquoi le split fonctionne ici et pas dans photo.js?
+        this._portraitPath = `/assets/photographers/${this._id}/portrait`
     }
 
     get name(){
@@ -28,6 +29,9 @@ class Photographer {
         return this._price
     }
     get portrait(){
-        return this._portrait
+        return `${this._portraitPath}/${this._portrait[0]}.jpg`
+    }
+    get thumbnail(){
+        return `${this._portraitPath}/${this._portrait[0]}_thumbnail.jpg`
     }
 }

@@ -19,6 +19,22 @@
     border-radius: 50%;
 }
 
+.profile-name{
+    font-size: 4rem;
+    color: #D3573C;
+}
+
+.profile-place{
+    font-size: 1.5rem;
+    color: #901C1C;
+    margin-bottom: 5px;
+}
+
+.profile-tagline{
+    font-size: 1.125rem;
+    color: #525252;
+}
+
 .contact_button {
     font-size: 20px;
     font-weight: bold;
@@ -93,6 +109,7 @@ form input {
     flex-flow: row wrap;
     justify-content: space-around;
     gap: 40px;
+    margin-top: 50px;
 }
 
 .media-content{
@@ -106,13 +123,42 @@ form input {
     height: calc(100% - 30px);
     width: 100%;
     object-fit: cover;
-    border-radius: 3%;
+    border-radius: 5px;
 }
 
 .media-info{ /*TODO Comment gérer les titres trop long?*/
     height: 30px;
+    max-width: 100%;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
     font-size: 1.5rem;
+    font-stretch: 50%;
 }
+
+.media-likes{
+    width: auto;
+    display: flex;
+    flex-flow: row;
+    gap: 6.37px;
+}
+
+.liked{
+    color: yellow;
+}
+
+.likes-container{
+    position: fixed;
+    bottom: -19px;
+    right: 36px;
+    background-color: #DB8876;
+    width: 376px;
+    height: 89px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+

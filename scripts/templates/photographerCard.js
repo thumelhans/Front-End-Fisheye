@@ -9,7 +9,7 @@ class PhotographCard{
 
         const photographCard = `
             <a href="photographer.html?id=${this._photograph.id}">
-                <img src="/assets/photographers/photographers_profil_picture/${this._photograph.portrait}" alt="">
+                <img src="${this._photograph.thumbnail}" alt="">
                 <h2 class="photographer-name">
                     ${this._photograph.name}
                 </h2>
@@ -28,14 +28,14 @@ class PhotographCard{
         const photoContainer = document.createElement('article')
         
         const photographInfoHTML = `
-            <h2 class="photographer-name">
+            <h2 class="profile-name">
                ${this ._photograph.name}
             </h2>
-            <p class="photographer-place">${this._photograph.city}, ${this._photograph.country}</p>
-            <p class="photographer-tagline">${this._photograph.tagline}</p>
+            <p class="profile-place">${this._photograph.city}, ${this._photograph.country}</p>
+            <p class="profile-tagline">${this._photograph.tagline}</p>
         `
         const photographProfileImageHTML = `
-            <img src="/assets/photographers/photographers_profil_picture/${this._photograph.portrait}" alt="">
+            <img src="${this._photograph.thumbnail}" alt="">
         `
         
         infoContainer.innerHTML = photographInfoHTML
