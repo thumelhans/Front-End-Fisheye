@@ -19,7 +19,17 @@ class Likes {
         const likeNode = document.createElement('div')
         likeNode.classList.add('sum-of-likes')
 
-        const photographLikes = `<p>${sumOfLikes} <i class="fa-solid fa-heart"></i></p>`;
+        const photographLikes = `<p>${sumOfLikes} <i class="fa-solid fa-heart" id="sum-of-like"></i></p>`;
+
+        likeNode.innerHTML= photographLikes
+        
+        return likeNode
+    }
+    
+    updateLikeNode(sumOfLikes){
+        const likeNode = document.querySelector('.sum-of-likes')
+        
+        const photographLikes = `<p>${sumOfLikes} <i class="fa-solid fa-heart" id="sum-of-like"></i></p>`;
 
         likeNode.innerHTML= photographLikes
         

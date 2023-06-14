@@ -22,17 +22,4 @@ class MediumCard{
         container.innerHTML = mediaCard
         return container
     }
-
-    likeCounter(nmbOfLike){
-        const likesContainer = document.createElement('div')
-        likesContainer.classList.add("likes-content")
-
-        const likesContent = `
-            <p>${nmbOfLike}<i class="fa-solid fa-heart"></i></p>
-
-        `
-
-        likesContainer.innerHTML = likesContent
-        return likesContainer
-    }
 }
