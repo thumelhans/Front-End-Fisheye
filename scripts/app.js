@@ -34,8 +34,7 @@ class App {
             if(photograph._id === parseInt(this._idUrl[1])){
                 template.createProfile(this._photographerContainerQuery)
                 this._counterQuery.append(`${photograph.price}€/jour`)
-            }
-            
+            }            
         });
         
         // Mise en place de l'appercu des photos du photographe
@@ -111,10 +110,17 @@ class App {
                 }
             });
         });
+
+        const sendingContactButton = document.querySelector(".contact_modal")
+
+        sendingContactButton.addEventListener("click", (e)=>{
+            if(e.target.matches(".contact_send")){
+                e.preventDefault()
+                sendContact()
+            }
+        })
     }
 }
 
 const app = new App()
 app.main()
-
-//TODO Faire l'ajout du like dans le conteneur like/TJM

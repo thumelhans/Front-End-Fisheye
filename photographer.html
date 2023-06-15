@@ -19,19 +19,41 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
     </main>
+    <div id="sort-container">
+      <form action="#" class="sort-form">
+        <label for="sorting-medium">Trier par</label>
+        <select name="sorting-medium" id="sorting-medium">
+          <option value="popularity">Popularité</option>
+          <option value="date">Date</option>
+          <option value="title">Titre</option>
+        </select>
+      </form>
+    </div>
     <div class="media-container"></div>
-    <div id="contact_modal">
+    <div class="contact_modal">
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
-				<form>
+				<form action="#">
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label for="firstname">Prénom</label>
+						<input type="text" name="firstname" required></input>
 					</div>
-          <button class="contact_button">Envoyer</button>
+					<div>
+						<label for="lastname">Nom</label>
+						<input type="text" name="lastname" required></input>
+					</div>
+					<div>
+						<label for="email">Email</label>
+						<input type="email" name="email" required></input>
+					</div>
+					<div>
+						<label for="message">Votre message</label>
+						<textarea name="message" required></textarea>
+					</div>
+          <button class="contact_send" type="submit">Envoyer</button>
 				</form>
 			</div>
 		</div>
@@ -53,6 +75,7 @@
 
      <!-- Utils -->
      <script src="scripts/utils/likes.js"></script>
+     <script src="scripts/utils/contactForm.js"></script>
  
      <!-- App -->
      <script src="scripts/app.js"></script>
