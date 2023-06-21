@@ -51,7 +51,9 @@ class App {
         // Mise en place de la gestion des likes
         const likesManagement = new Likes(likesArray)
         let sum = likesManagement.sumOfLikes()
-        this._counterQuery.prepend(likesManagement.createLikeNode(sum))
+        if(this._counterQuery){
+            this._counterQuery.prepend(likesManagement.createLikeNode(sum))
+        }
         
         const likeIconQuery = document.querySelectorAll(".fa-heart")
         
@@ -113,12 +115,14 @@ class App {
 
         const sendingContactButton = document.querySelector(".contact_modal")
 
-        sendingContactButton.addEventListener("click", (e)=>{
-            if(e.target.matches(".contact_send")){
-                e.preventDefault()
-                sendContact()
-            }
-        })
+        if(sendingContactButton){
+            sendingContactButton.addEventListener("click", (e)=>{
+                if(e.target.matches(".contact_send")){
+                    e.preventDefault()
+                    sendContact()
+                }
+            })
+        }
     }
 }
 

@@ -15,70 +15,72 @@
       </a>
     </header>
     <main id="main">
-      <div class="photograph-header">
+      <section class="photograph-header">
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-      </div>
+      </section>
+      <section id="sort-container">
+        <div class="sorting-label">Trier par</div>
+        <div class="sorting-list">
+          <ul class="sorting-ul">
+            <li id="sorting-popularity" class="firstElem">Popularité</li>
+            <li id="sorting-date" class="hidden">Date</li>
+            <li id="sorting-title" class="hidden">Titre</li>
+          </ul>
+          <div class="sorting-icon"><i class="fa-solid fa-chevron-down"></i></div>
+        </div>
+      </section>
+      <section class="media-container"></section>
+      <section class="contact_modal">
+        <div class="modal">
+          <header>
+            <h2>Contactez-moi</h2>
+            <img src="assets/icons/close.svg" onclick="closeModal()" />
+          </header>
+          <form action="#">
+            <div>
+              <label for="firstname">Prénom</label>
+              <input type="text" name="firstname" required></input>
+            </div>
+            <div>
+              <label for="lastname">Nom</label>
+              <input type="text" name="lastname" required></input>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" name="email" required></input>
+            </div>
+            <div>
+              <label for="message">Votre message</label>
+              <textarea name="message" required></textarea>
+            </div>
+            <button class="contact_send" type="submit">Envoyer</button>
+          </form>
+        </div>
+      </section>
+      <section class="likes-container"></section>
     </main>
-    <div id="sort-container">
-      <form action="#" class="sort-form">
-        <label for="sorting-medium">Trier par</label>
-        <select name="sorting-medium" id="sorting-medium">
-          <option value="popularity">Popularité</option>
-          <option value="date">Date</option>
-          <option value="title">Titre</option>
-        </select>
-      </form>
-    </div>
-    <div class="media-container"></div>
-    <div class="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
-				<form action="#">
-					<div>
-						<label for="firstname">Prénom</label>
-						<input type="text" name="firstname" required></input>
-					</div>
-					<div>
-						<label for="lastname">Nom</label>
-						<input type="text" name="lastname" required></input>
-					</div>
-					<div>
-						<label for="email">Email</label>
-						<input type="email" name="email" required></input>
-					</div>
-					<div>
-						<label for="message">Votre message</label>
-						<textarea name="message" required></textarea>
-					</div>
-          <button class="contact_send" type="submit">Envoyer</button>
-				</form>
-			</div>
-		</div>
-    <div class="likes-container"></div>
-
-     <!-- Models -->
-     <script src="scripts/models/photo.js"></script>
-     <script src="scripts/models/photographer.js"></script>
- 
-     <!-- API -->
-     <script src="scripts/api/api.js"></script>
- 
-     <!-- Factories -->
-     <script src="scripts/factories/photographFactory.js"></script>
-   
-     <!-- Templates -->
-     <script src="scripts/templates/photographerCard.js"></script>
-     <script src="scripts/templates/mediumCard.js"></script>
-
-     <!-- Utils -->
-     <script src="scripts/utils/likes.js"></script>
-     <script src="scripts/utils/contactForm.js"></script>
- 
-     <!-- App -->
-     <script src="scripts/app.js"></script>
-
+    
+    <!-- Models -->
+    <script src="scripts/models/photo.js"></script>
+    <script src="scripts/models/photographer.js"></script>
+    
+    <!-- API -->
+    <script src="scripts/api/api.js"></script>
+    
+    <!-- Factories -->
+    <script src="scripts/factories/photographFactory.js"></script>
+    
+    <!-- Templates -->
+    <script src="scripts/templates/photographerCard.js"></script>
+    <script src="scripts/templates/mediumCard.js"></script>
+    
+    <!-- Utils -->
+    <script src="scripts/utils/likes.js"></script>
+    <script src="scripts/utils/contactForm.js"></script>
+    <script src="scripts/utils/sort.js"></script>
+    
+    <!-- App -->
+    <script src="scripts/app.js"></script>
+    
   </body>
-</html>
+  </html>

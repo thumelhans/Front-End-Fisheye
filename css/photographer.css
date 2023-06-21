@@ -144,7 +144,7 @@ form textarea{
     flex-flow: row wrap;
     justify-content: space-around;
     gap: 40px;
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 .media-content{
@@ -198,31 +198,65 @@ form textarea{
 }
 
 #sort-container{
-    border: #901C1C solid 2px;
+    position:absolute;
     margin: 20px 100px 0 100px;
-}
-
-.sort-form{
+    padding: 10px;
+    font-size: 1.125rem;
+    font-weight: bold;
     display: flex;
-    flex-direction: row;
+    flex-flow: row;
     justify-content: start;
-    align-items: center;
     gap: 30px;
+    width: max-content;
 }
 
-.sort-form label{
-    font-size: 1.125rem;
-    font-weight: bold;
-}
-.sort-form select{
-    font-weight: bold;
-    font-size: 1.125rem;
-}
-
-#sorting-medium{
+.sorting-list{
+    border-radius: 5px;
     background-color: #901C1C;
     color: white;
-    border: none;
-    outline: none;
-    padding: 5px;
+    width: max-content;
+    position:relative;
+    height: max-content;
+    border: #901C1C solid 2px;
+    display: flex;
+    flex-flow: row;
+    align-items: start;
+    justify-content: start;
+    gap: 15px;
+    width: 170px;
+}
+
+.sorting-ul{
+    padding: 0px 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.sorting-ul li{
+    padding: 14px 0px;
+}
+
+
+.sorting-ul li:nth-child(n+2):nth-child(-n+3) {
+    margin-top: 10px;
+    border-top:white solid 1px;
+}
+
+.sorting-icon{
+    font-size: 1rem;
+    font-weight: bold;
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    transform-origin: center;
+    cursor: pointer;
+}
+
+.icon-rotate{
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+.hidden{
+    display: none;
 }

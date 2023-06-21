@@ -8,6 +8,9 @@ class MediumCard{
     createCard(){
         const container = document.createElement('article') 
         container.classList.add("media-content", this._photo.id)
+        container.dataset.likes = `${this._photo.likes}`
+        container.dataset.date = `${this._photo.date}`
+        container.dataset.title = `${this._photo.title}`
 
         const mediaCard = `
             <img src="${this._photo.thumbnail}" alt="">
