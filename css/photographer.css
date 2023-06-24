@@ -55,10 +55,6 @@
     height: max-content;
 }
 
-.modal-display{
-    opacity: 1;
-    z-index: 0;
-}
 
 .modal {
     border-radius: 5px;
@@ -260,3 +256,89 @@ form textarea{
 .hidden{
     display: none;
 }
+
+.carousel_modal{
+    height: 984px;
+    width: 1253px;
+    background-color: yellow;
+    opacity: 0;
+    z-index: -1;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+
+.carousel-container button {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px 20px 0 0;
+    color: #901C1C;
+    font-size: 32px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    height: max-content;
+    width: max-content;
+}
+
+
+.carousel-container img, .carousel-container video{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.next-previous a{
+    color: #901C1C;
+}
+
+.next-previous .fa-chevron-left{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 30px;
+}
+
+.next-previous .fa-chevron-right{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 30px;
+}
+
+.modal-display{
+    opacity: 1;
+    z-index: 0;
+}
+
+.fa-video{
+    font-size: 32px;
+    font-weight: bold;
+    color: #DB8876;
+    text-shadow:
+        -2px 0px 0px #901C1C,
+        2px 0px 0px #901C1C,
+        0px -2px 0px #901C1C,
+        0px 2px 0px #901C1C;
+    position: absolute;
+    margin: 15px 0 0 15px;
+}
+
+.carousel-media{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: #901C1C solid 10px;
+}
+
+/* TODO Faire le CSS de présentation de média sur le carousel */

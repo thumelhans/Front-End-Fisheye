@@ -39,15 +39,18 @@ class App {
         
         // Mise en place de l'appercu des photos du photographe
         let likesArray = []
+        let carouselCard = []
         medium.forEach(element => {
             const template = new MediumCard(element)
             if(element.photographerId === parseInt(this._idUrl[1])){
                 this._mediaContainerQuery.appendChild(template.createCard())
                 let likeObject = {"photoID": element.id, "numOfLike": element.likes} 
                 likesArray.push(likeObject)
+                carouselCard.push(template.carouselCard())
             }
         });
         
+
         // Mise en place de la gestion des likes
         const likesManagement = new Likes(likesArray)
         let sum = likesManagement.sumOfLikes()
@@ -123,6 +126,43 @@ class App {
                 }
             })
         }
+
+        const yeswecan = document.querySelectorAll('.media-content')
+        const closeCarousel = document.querySelector('.carousel-container button')
+        const nextCarousel = document.querySelector('.next-previous')
+        
+        const carouselModal = new Carousel(carouselCard)
+        yeswecan.forEach(elem => {
+            
+            elem.addEventListener("click", e =>{
+                e.preventDefault()
+
+                if(e.target.tagName !== 'I'){
+                    carouselModal.displayModal()
+                    carouselModal.createCarousel(elem.dataset.id)
+                }
+            })
+        })
+
+        nextCarousel.addEventListener("click", e =>{
+            e.preventDefault()
+            
+            
+            if(e.target.classList.contains('fa-chevron-right')){    
+                carouselModal.nextMedia()
+            }
+            if(e.target.classList.contains('fa-chevron-left')){
+                carouselModal.previousMedia()
+            }
+
+        })
+
+        closeCarousel.addEventListener("click", e => {
+            e.preventDefault()
+            
+            carouselModal.closeModal()
+        })
+
     }
 }
 

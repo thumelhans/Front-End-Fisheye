@@ -22,12 +22,20 @@ class Photo {
     get title(){
         return this._title
     }
- 
+
     get image(){
-        return this._video
-            ? this.videoThumbnail = this._video.replace("mp4", "jpg") 
-              `${this._mediaPath}/thumbnail/thumb_${this.videoThumbnail}`
-            : `${this._mediaPath}/${this._image}`
+        if(this._video){
+            return{
+                type: "video",
+                path: `${this._mediaPath}/${this._video}`
+            } 
+        }else{
+            return {
+                type: "image",
+                path: `${this._mediaPath}/${this._image}`
+            }
+            
+        }
     }
     
     get thumbnail(){

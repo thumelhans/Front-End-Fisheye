@@ -5,6 +5,8 @@ let newLiQuery
 const mediumContainer = document.querySelector('.media-container')
 const letTry = mediumContainer.children
 
+//TODO corriger le bug du toggle hidden quand on appuye ailleurs que sur le li lorsque c'est OPEN
+
 const sortFunctions = {
     like: (a, b) => b.dataset.likes - a.dataset.likes,
     title: (a, b) => a.dataset.title.localeCompare(b.dataset.title),

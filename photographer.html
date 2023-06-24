@@ -57,6 +57,19 @@
           </form>
         </div>
       </section>
+      <section class="carousel_modal">
+        <div class="carousel-container"> <!-- TODO Quand je passe ma modal en tag dialog, soit elle n'apparaît pas, soit le bouton n'apparaît pas -->
+          <header>
+            <button>
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </header>
+          <div class="next-previous">
+            <a href="#"><i class="fa-solid fa-chevron-left"></i></a>
+            <a href="#"><i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+        </div>
+      </section>
       <section class="likes-container"></section>
     </main>
     
@@ -81,6 +94,7 @@
     
     <!-- App -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/utils/carousel.js" defer></script>
     
   </body>
   </html>
