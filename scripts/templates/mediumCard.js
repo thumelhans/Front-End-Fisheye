@@ -54,6 +54,4 @@ class MediumCard{
         container.innerHTML = carouselCard;
         return container;
       }
-
-
 }

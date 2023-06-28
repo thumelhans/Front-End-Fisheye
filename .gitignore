@@ -1,0 +1,8 @@
+# Ignore le dossier node_modules
+node_modules
+
+# Ignore les fichier package
+pack*.json
+
+# Ignore le fichier de configuration EsLint
+.eslintrc.js
