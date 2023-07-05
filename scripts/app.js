@@ -53,6 +53,7 @@ class App {
             this._locationUrl.pathname === `${this.deployedProject}/index.html`) {
             photographers.forEach((photograph) => {
                 const template = new PhotographCard(photograph)
+                console.log(template)
                 this._indexContainerQuery.appendChild(template.createCard())
             })
         } else {
