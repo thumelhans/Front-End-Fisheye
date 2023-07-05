@@ -15,7 +15,7 @@ class Photo {
         this._title = data.title
         this._image = data.image
         this._video = data.video
-        this._mediaPath = `/assets/photographers/${this._photographerId}`
+        this._mediaPath = `./assets/photographers/${this._photographerId}`
         this._likes = data.likes
         this._price = data.price
         this._date = data.date

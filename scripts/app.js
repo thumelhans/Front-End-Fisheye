@@ -29,17 +29,8 @@ class App {
     */
     async main() {
         // Récupération des informations présent dans le fichier JSON
-        let photographerData
-        let mediumData
-        if (
-            this._locationUrl.pathname === `${this.deployedProject}/` ||
-            this._locationUrl.pathname === `/${this.deployedProject}/index.html`) {
-            photographerData = await this._ghpPhotographers.getPhotographer()
-            mediumData = await this._ghpMedium.getMedium()
-        } else {
-            photographerData = await this._photographers.getPhotographer()
-            mediumData = await this._medium.getMedium()
-        }
+        const photographerData = await this._photographers.getPhotographer()
+        const mediumData = await this._medium.getMedium()
 
         console.log(photographerData)
         console.log(mediumData)
@@ -51,12 +42,15 @@ class App {
         const photographers = photographerData.map((photograph) => new PhotographFactory(photograph, 'photographers'))
         const medium = mediumData.map((media) => new PhotographFactory(media, 'media'))
 
+        console.log(photographers)
+        console.log(medium)
+
         // Mise en place de la carte de chage photographe et de leur profil sur leur page respective
         if (
             this._locationUrl.pathname === `/` ||
             this._locationUrl.pathname === '/index.html' ||
             this._locationUrl.pathname === `${this.deployedProject}/` ||
-            this._locationUrl.pathname === `/${this.deployedProject}/index.html`) {
+            this._locationUrl.pathname === `${this.deployedProject}/index.html`) {
             photographers.forEach((photograph) => {
                 const template = new PhotographCard(photograph)
                 this._indexContainerQuery.appendChild(template.createCard())
