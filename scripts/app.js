@@ -16,8 +16,8 @@ class App {
         this._photographerContainerQuery = document.querySelector('.photograph-header')
         this._mediaContainerQuery = document.querySelector('.media-container')
         this._counterQuery = document.querySelector('.likes-container')
-        this._photographers = new PhotographerApi('/data/photographers.json')
-        this._medium = new MediumApi('/data/photographers.json')
+        this._photographers = new PhotographerApi('data/photographers.json')
+        this._medium = new MediumApi('data/photographers.json')
     }
 
     /**
