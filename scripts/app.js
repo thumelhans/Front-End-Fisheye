@@ -80,20 +80,22 @@ class App {
             }
         })
 
+        console.log('Carousel', carouselCard)
+        
         // Mise en place de la gestion des likes
         const likesManagement = new Likes(likesArray)
         let sum = likesManagement.sumOfLikes()
         if (this._counterQuery) {
             this._counterQuery.prepend(likesManagement.createLikeNode(sum))
         }
-
+        
         const likeIconQuery = document.querySelectorAll('.fa-heart')
-
+        
         // Event listener gerant l'ajout ou le retrait de like sur une photo
         likeIconQuery.forEach((elem) => {
             elem.addEventListener('click', async (e) => {
                 e.preventDefault()
-
+                
                 const selectedPhotoId = parseInt(elem.id)
                 const sessionElem = sessionStorage.getItem(elem.id)
                 let newLikes
@@ -101,13 +103,13 @@ class App {
                 if (sessionElem == null) {
                     mediumData.forEach((mediumElem) => {
                         newLikes = mediumElem.likes
-
+                        
                         if (mediumElem.id === selectedPhotoId) {
                             newLikes++
-
+                            
                             const likesArrayIndex =
                                 likesArray.indexOf(likesArray.find((elem) => parseInt(elem.photoID) == selectedPhotoId))
-                            likesArray[likesArrayIndex].numOfLike++
+                                likesArray[likesArrayIndex].numOfLike++
                             medium.forEach((elem) => {
                                 if (elem.id === selectedPhotoId) {
                                     elem.addLikes = newLikes
@@ -116,16 +118,16 @@ class App {
                             })
                         }
                     })
-
+                    
                     sum = likesManagement.sumOfLikes()
                     likesManagement.updateLikeNode(sum)
                 } else {
                     mediumData.forEach((mediumElem) => {
                         newLikes = mediumElem.likes
-
+                        
                         if (mediumElem.id === selectedPhotoId) {
                             const likesArrayIndex =
-                                likesArray.indexOf(likesArray.find((elem) => parseInt(elem.photoID) == selectedPhotoId))
+                            likesArray.indexOf(likesArray.find((elem) => parseInt(elem.photoID) == selectedPhotoId))
                             likesArray[likesArrayIndex].numOfLike--
                             medium.forEach((elem) => {
                                 if (elem.id === selectedPhotoId) {
@@ -158,6 +160,7 @@ class App {
 
         // Gestion de la lightbox affichant les photos une par une.
         if (this._idUrl.length > 1) {
+            console.log('Carousel dans if', carouselCard)
             const mediumContentQuery = document.querySelectorAll('.media-content')
 
             const carouselModal = new Carousel(carouselCard)
@@ -180,17 +183,17 @@ class App {
             *
             * @param {*} e
             */
-            function nextPrevious(e) {
-                e.preventDefault()
-
-                if (e.target.classList.contains('fa-chevron-right')) {
-                    carouselModal.nextMedia()
+           function nextPrevious(e) {
+               e.preventDefault()
+               
+               if (e.target.classList.contains('fa-chevron-right')) {
+                   carouselModal.nextMedia()
                 }
                 if (e.target.classList.contains('fa-chevron-left')) {
                     carouselModal.previousMedia()
                 }
             }
-
+            
             document.addEventListener('keydown', (e) => {
                 console.log(e.key)
                 if (e.key === 'ArrowRight') {
