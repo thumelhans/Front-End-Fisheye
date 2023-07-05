@@ -32,18 +32,9 @@ class App {
         const photographerData = await this._photographers.getPhotographer()
         const mediumData = await this._medium.getMedium()
 
-        console.log(photographerData)
-        console.log(mediumData)
-        console.log(this._locationUrl)
-        console.log(this._locationUrl.pathname)
-        console.log(this._idUrl)
-
         // construction du tableau des photographes et des médium
         const photographers = photographerData.map((photograph) => new PhotographFactory(photograph, 'photographers'))
         const medium = mediumData.map((media) => new PhotographFactory(media, 'media'))
-
-        console.log(photographers)
-        console.log(medium)
 
         // Mise en place de la carte de chage photographe et de leur profil sur leur page respective
         if (
@@ -52,9 +43,7 @@ class App {
             this._locationUrl.pathname === `${this._deployedProject}/` ||
             this._locationUrl.pathname === `${this._deployedProject}/index.html`) {
             photographers.forEach((photograph) => {
-                console.log(photograph)
                 const template = new PhotographCard(photograph)
-                console.log(template)
                 this._indexContainerQuery.appendChild(template.createCard())
             })
         } else {
@@ -80,22 +69,20 @@ class App {
             }
         })
 
-        console.log('Carousel', carouselCard)
-        
         // Mise en place de la gestion des likes
         const likesManagement = new Likes(likesArray)
         let sum = likesManagement.sumOfLikes()
         if (this._counterQuery) {
             this._counterQuery.prepend(likesManagement.createLikeNode(sum))
         }
-        
+
         const likeIconQuery = document.querySelectorAll('.fa-heart')
-        
+
         // Event listener gerant l'ajout ou le retrait de like sur une photo
         likeIconQuery.forEach((elem) => {
             elem.addEventListener('click', async (e) => {
                 e.preventDefault()
-                
+
                 const selectedPhotoId = parseInt(elem.id)
                 const sessionElem = sessionStorage.getItem(elem.id)
                 let newLikes
@@ -103,10 +90,10 @@ class App {
                 if (sessionElem == null) {
                     mediumData.forEach((mediumElem) => {
                         newLikes = mediumElem.likes
-                        
+
                         if (mediumElem.id === selectedPhotoId) {
                             newLikes++
-                            
+
                             const likesArrayIndex =
                                 likesArray.indexOf(likesArray.find((elem) => parseInt(elem.photoID) == selectedPhotoId))
                                 likesArray[likesArrayIndex].numOfLike++
@@ -118,13 +105,13 @@ class App {
                             })
                         }
                     })
-                    
+
                     sum = likesManagement.sumOfLikes()
                     likesManagement.updateLikeNode(sum)
                 } else {
                     mediumData.forEach((mediumElem) => {
                         newLikes = mediumElem.likes
-                        
+
                         if (mediumElem.id === selectedPhotoId) {
                             const likesArrayIndex =
                             likesArray.indexOf(likesArray.find((elem) => parseInt(elem.photoID) == selectedPhotoId))
@@ -183,17 +170,17 @@ class App {
             *
             * @param {*} e
             */
-           function nextPrevious(e) {
-               e.preventDefault()
-               
-               if (e.target.classList.contains('fa-chevron-right')) {
-                   carouselModal.nextMedia()
+            function nextPrevious(e) {
+                e.preventDefault()
+
+                if (e.target.classList.contains('fa-chevron-right')) {
+                    carouselModal.nextMedia()
                 }
                 if (e.target.classList.contains('fa-chevron-left')) {
                     carouselModal.previousMedia()
                 }
             }
-            
+
             document.addEventListener('keydown', (e) => {
                 console.log(e.key)
                 if (e.key === 'ArrowRight') {

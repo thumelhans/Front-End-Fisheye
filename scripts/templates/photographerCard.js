@@ -20,8 +20,6 @@ class PhotographCard {
      * @memberof PhotographCard
      */
     createCard() {
-        console.log('createCard est bien appelé: ', this._photograph)
-
         const container = document.createElement('article')
         container.classList.add('photographer', this._photograph.id)
 
