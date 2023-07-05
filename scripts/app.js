@@ -17,9 +17,9 @@ class App {
         this._mediaContainerQuery = document.querySelector('.media-container')
         this._counterQuery = document.querySelector('.likes-container')
         this._photographers = new PhotographerApi('./data/photographers.json')
-        this._ghpPhotographers = new PhotographerApi(`${this._deployedProject}./data/photographers.json`)
+        this._ghpPhotographers = new PhotographerApi(`${this._deployedProject}/photographers.json`)
         this._medium = new MediumApi('./data/photographers.json')
-        this._ghpMedium = new MediumApi(`${this._deployedProject}./data/photographers.json`)
+        this._ghpMedium = new MediumApi(`${this._deployedProject}/photographers.json`)
     }
 
     /**
