@@ -49,8 +49,8 @@ class App {
         if (
             this._locationUrl.pathname === `/` ||
             this._locationUrl.pathname === '/index.html' ||
-            this._locationUrl.pathname === `${this.deployedProject}/` ||
-            this._locationUrl.pathname === `${this.deployedProject}/index.html`) {
+            this._locationUrl.pathname === `${this._deployedProject}/` ||
+            this._locationUrl.pathname === `${this._deployedProject}/index.html`) {
             photographers.forEach((photograph) => {
                 const template = new PhotographCard(photograph)
                 console.log(template)
