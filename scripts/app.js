@@ -17,9 +17,9 @@ class App {
         this._mediaContainerQuery = document.querySelector('.media-container')
         this._counterQuery = document.querySelector('.likes-container')
         this._photographers = new PhotographerApi('./data/photographers.json')
-        this._ghpPhotographers = new PhotographerApi(`${this._deployedProject}/photographers.json`)
+        this._ghpPhotographers = new PhotographerApi(`./${this._deployedProject}/photographers.json`)
         this._medium = new MediumApi('./data/photographers.json')
-        this._ghpMedium = new MediumApi(`${this._deployedProject}/photographers.json`)
+        this._ghpMedium = new MediumApi(`./${this._deployedProject}/photographers.json`)
     }
 
     /**
@@ -40,6 +40,12 @@ class App {
             photographerData = await this._photographers.getPhotographer()
             mediumData = await this._medium.getMedium()
         }
+
+        console.log(photographerData)
+        console.log(mediumData)
+        console.log(this._locationUrl)
+        console.log(this._locationUrl.pathname)
+        console.log(this._idUrl)
 
         // construction du tableau des photographes et des médium
         const photographers = photographerData.map((photograph) => new PhotographFactory(photograph, 'photographers'))
@@ -66,8 +72,8 @@ class App {
         }
 
         // Mise en place de l'appercu des photos du photographe
-        let likesArray = []
-        let carouselCard = []
+        const likesArray = []
+        const carouselCard = []
         medium.forEach((element) => {
             const template = new MediumCard(element)
             if (element.photographerId === parseInt(this._idUrl[1])) {
@@ -142,6 +148,7 @@ class App {
             })
         })
 
+        // Gestion du bouton d'envoie du formulaire
         const sendingContactButton = document.querySelector('.contact_modal')
 
         if (sendingContactButton) {
@@ -153,59 +160,62 @@ class App {
             })
         }
 
-        const mediumContentQuery = document.querySelectorAll('.media-content')
-        const carouselContainer = document.querySelector('.carousel-container')
-        const closeCarousel = document.querySelector('.carousel-container button')
-        const nextPreviousCarousel = document.querySelector('.next-previous')
+        // Gestion de la lightbox affichant les photos une par une.
+        if (this._idUrl.length > 1) {
+            const mediumContentQuery = document.querySelectorAll('.media-content')
 
-        const carouselModal = new Carousel(carouselCard)
-        mediumContentQuery.forEach((elem) => {
-            elem.addEventListener('click', (e) =>{
+            const carouselModal = new Carousel(carouselCard)
+            mediumContentQuery.forEach((elem) => {
+                elem.addEventListener('click', (e) =>{
+                    e.preventDefault()
+
+                    if (e.target.tagName !== 'I') {
+                        carouselModal.displayModal()
+                        carouselModal.createCarousel(elem.dataset.id)
+                    }
+                })
+            })
+
+            const closeCarousel = document.querySelector('.carousel-container button')
+            const nextPreviousCarousel = document.querySelector('.next-previous')
+
+            /**
+             *
+            *
+            * @param {*} e
+            */
+            function nextPrevious(e) {
                 e.preventDefault()
 
-                if (e.target.tagName !== 'I') {
-                    carouselModal.displayModal()
-                    carouselModal.createCarousel(elem.dataset.id)
+                if (e.target.classList.contains('fa-chevron-right')) {
+                    carouselModal.nextMedia()
+                }
+                if (e.target.classList.contains('fa-chevron-left')) {
+                    carouselModal.previousMedia()
+                }
+            }
+
+            document.addEventListener('keydown', (e) => {
+                console.log(e.key)
+                if (e.key === 'ArrowRight') {
+                    console.log(e.key)
+                    carouselModal.nextMedia()
+                } else if (e.key === 'ArrowLeft') {
+                    console.log(e.key)
+                    carouselModal.previousMedia()
+                } else if (e.key === 'Escape') {
+                    carouselModal.closeModal()
                 }
             })
-        })
 
-        /**
-         *
-         *
-         * @param {*} e
-         */
-        function nextPrevious(e) {
-            e.preventDefault()
+            nextPreviousCarousel.addEventListener('click', nextPrevious)
 
-            if (e.target.classList.contains('fa-chevron-right')) {
-                carouselModal.nextMedia()
-            }
-            if (e.target.classList.contains('fa-chevron-left')) {
-                carouselModal.previousMedia()
-            }
-        }
+            closeCarousel.addEventListener('click', (e) => {
+                e.preventDefault()
 
-        document.addEventListener('keydown', (e) => {
-            console.log(e.key)
-            if (e.key === 'ArrowRight') {
-                console.log(e.key)
-                carouselModal.nextMedia()
-            } else if (e.key === 'ArrowLeft') {
-                console.log(e.key)
-                carouselModal.previousMedia()
-            } else if (e.key === 'Escape') {
                 carouselModal.closeModal()
-            }
-        })
-
-        nextPreviousCarousel.addEventListener('click', nextPrevious)
-
-        closeCarousel.addEventListener('click', (e) => {
-            e.preventDefault()
-
-            carouselModal.closeModal()
-        })
+            })
+        }
     }
 }
 
