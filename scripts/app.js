@@ -1,168 +1,200 @@
+/**
+*
+*
+* @class App
+*/
 class App {
-    constructor(){
+    /**
+    * Creates an instance of App.
+    * @memberof App
+    */
+    constructor() {
         this._locationUrl = window.location
-        this._idUrl = this._locationUrl.search.split("=")
+        this._deployedProject = '/Front-End-Fisheye'
+        this._idUrl = this._locationUrl.search.split('=')
         this._indexContainerQuery = document.querySelector('.photographer_section')
         this._photographerContainerQuery = document.querySelector('.photograph-header')
-        this._mediaContainerQuery = document.querySelector(".media-container")
-        this._counterQuery = document.querySelector(".likes-container")
-        this._photographers = new PhotographerApi("/data/photographers.json")
-        this._medium = new MediumApi("/data/photographers.json")
+        this._mediaContainerQuery = document.querySelector('.media-container')
+        this._counterQuery = document.querySelector('.likes-container')
+        this._photographers = new PhotographerApi('/data/photographers.json')
+        this._medium = new MediumApi('/data/photographers.json')
     }
-    
-    async main(){
 
-        //Nettoyage du session storage pour éviter tout effet de bord. //TODO temp et gérer les likes quand on part/revient sur la page
-        window.addEventListener('beforeunload', function() {
-            sessionStorage.clear();
-        });
-        
-        //Récupération des informations présent dans le fichier JSON
+    /**
+    *
+    *
+    * @memberof App
+    */
+    async main() {
+        // Récupération des informations présent dans le fichier JSON
         const photographerData = await this._photographers.getPhotographer()
         const mediumData = await this._medium.getMedium()
-        
-        //construction d'un tableau contenant tous les photographes et un tableau de tous les médium
-        const photographers = photographerData.map(photograph => new PhotographFactory(photograph, 'photographers'))
-        const medium = mediumData.map(media => new PhotographFactory(media, 'media'))
-        
+
+        // construction du tableau des photographes et des médium
+        const photographers = photographerData.map((photograph) => new PhotographFactory(photograph, 'photographers'))
+        const medium = mediumData.map((media) => new PhotographFactory(media, 'media'))
+
         // Mise en place de la carte de chage photographe et de leur profil sur leur page respective
-        photographers.forEach(photograph => {
-            const template = new PhotographCard(photograph)
-            if(this._locationUrl.pathname === "/index.html"){
+        if (
+            this._locationUrl.pathname === `/` ||
+            this._locationUrl.pathname === '/index.html' ||
+            this._locationUrl.pathname === `${this.deployedProject}/` ||
+            this._locationUrl.pathname === `/${this.deployedProject}/index.html`) {
+            photographers.forEach((photograph) => {
+                const template = new PhotographCard(photograph)
                 this._indexContainerQuery.appendChild(template.createCard())
-            }
-            if(photograph._id === parseInt(this._idUrl[1])){
-                template.createProfile(this._photographerContainerQuery)
-                this._counterQuery.append(`${photograph.price}€/jour`)
-            }            
-        });
-        
+            })
+        } else {
+            photographers.forEach((photograph) => {
+                const template = new PhotographCard(photograph)
+                if (photograph._id === parseInt(this._idUrl[1])) {
+                    template.createProfile(this._photographerContainerQuery)
+                    this._counterQuery.append(`${photograph.price}€/jour`)
+                }
+            })
+        }
+
         // Mise en place de l'appercu des photos du photographe
         let likesArray = []
         let carouselCard = []
-        medium.forEach(element => {
+        medium.forEach((element) => {
             const template = new MediumCard(element)
-            if(element.photographerId === parseInt(this._idUrl[1])){
+            if (element.photographerId === parseInt(this._idUrl[1])) {
                 this._mediaContainerQuery.appendChild(template.createCard())
-                let likeObject = {"photoID": element.id, "numOfLike": element.likes} 
+                const likeObject = {'photoID': element.id, 'numOfLike': element.likes}
                 likesArray.push(likeObject)
                 carouselCard.push(template.carouselCard())
             }
-        });
-        
+        })
 
         // Mise en place de la gestion des likes
         const likesManagement = new Likes(likesArray)
         let sum = likesManagement.sumOfLikes()
-        if(this._counterQuery){
+        if (this._counterQuery) {
             this._counterQuery.prepend(likesManagement.createLikeNode(sum))
         }
-        
-        const likeIconQuery = document.querySelectorAll(".fa-heart")
-        
-        //Event listener gerant l'ajout ou le retrait de like sur une photo
-        likeIconQuery.forEach(elem => {
-            elem.addEventListener("click", async (e) => {
-                e.preventDefault();
-                
-                const selectedPhotoId = parseInt(elem.id);
-                const sessionElem = sessionStorage.getItem(elem.id);
-                
-                let newLikes;
-                
+
+        const likeIconQuery = document.querySelectorAll('.fa-heart')
+
+        // Event listener gerant l'ajout ou le retrait de like sur une photo
+        likeIconQuery.forEach((elem) => {
+            elem.addEventListener('click', async (e) => {
+                e.preventDefault()
+
+                const selectedPhotoId = parseInt(elem.id)
+                const sessionElem = sessionStorage.getItem(elem.id)
+                let newLikes
+
                 if (sessionElem == null) {
-                    
-                    mediumData.forEach(mediumElem => {
-                        newLikes = mediumElem.likes;
-                        
+                    mediumData.forEach((mediumElem) => {
+                        newLikes = mediumElem.likes
+
                         if (mediumElem.id === selectedPhotoId) {
-                            newLikes++;                         
-                            
-                            const likesArrayIndex = likesArray.indexOf(likesArray.find(elem => parseInt(elem.photoID) == selectedPhotoId))
+                            newLikes++
+
+                            const likesArrayIndex =
+                                likesArray.indexOf(likesArray.find((elem) => parseInt(elem.photoID) == selectedPhotoId))
                             likesArray[likesArrayIndex].numOfLike++
-                            medium.forEach(elem => {
+                            medium.forEach((elem) => {
                                 if (elem.id === selectedPhotoId) {
-                                    elem.addLikes = newLikes;
-                                    likesManagement.addLike(elem);
+                                    elem.addLikes = newLikes
+                                    likesManagement.addLike(elem)
                                 }
-                            });
+                            })
                         }
-                    });
-                    
+                    })
+
                     sum = likesManagement.sumOfLikes()
                     likesManagement.updateLikeNode(sum)
-                    elem.classList.add("liked");
                 } else {
-                    mediumData.forEach(mediumElem => {
-                        newLikes = mediumElem.likes;
-                        
+                    mediumData.forEach((mediumElem) => {
+                        newLikes = mediumElem.likes
+
                         if (mediumElem.id === selectedPhotoId) {
-                            
-                            const likesArrayIndex = likesArray.indexOf(likesArray.find(elem => parseInt(elem.photoID) == selectedPhotoId))
+                            const likesArrayIndex =
+                                likesArray.indexOf(likesArray.find((elem) => parseInt(elem.photoID) == selectedPhotoId))
                             likesArray[likesArrayIndex].numOfLike--
-                            medium.forEach(elem => {
+                            medium.forEach((elem) => {
                                 if (elem.id === selectedPhotoId) {
-                                    elem.addLikes = newLikes;
-                                    likesManagement.substractLike(elem);
+                                    elem.addLikes = newLikes
+                                    likesManagement.substractLike(elem)
                                 }
-                            });
+                            })
                         }
-                    });
-                    
+                    })
+
                     sum = likesManagement.sumOfLikes()
                     likesManagement.updateLikeNode(sum)
-                    elem.classList.remove("liked");
                 }
-            });
-        });
 
-        const sendingContactButton = document.querySelector(".contact_modal")
+                elem.classList.toggle('clicked')
+            })
+        })
 
-        if(sendingContactButton){
-            sendingContactButton.addEventListener("click", (e)=>{
-                if(e.target.matches(".contact_send")){
+        const sendingContactButton = document.querySelector('.contact_modal')
+
+        if (sendingContactButton) {
+            sendingContactButton.addEventListener('click', (e)=>{
+                if (e.target.matches('.contact_send')) {
                     e.preventDefault()
                     sendContact()
                 }
             })
         }
 
-        const yeswecan = document.querySelectorAll('.media-content')
+        const mediumContentQuery = document.querySelectorAll('.media-content')
+        const carouselContainer = document.querySelector('.carousel-container')
         const closeCarousel = document.querySelector('.carousel-container button')
-        const nextCarousel = document.querySelector('.next-previous')
-        
+        const nextPreviousCarousel = document.querySelector('.next-previous')
+
         const carouselModal = new Carousel(carouselCard)
-        yeswecan.forEach(elem => {
-            
-            elem.addEventListener("click", e =>{
+        mediumContentQuery.forEach((elem) => {
+            elem.addEventListener('click', (e) =>{
                 e.preventDefault()
 
-                if(e.target.tagName !== 'I'){
+                if (e.target.tagName !== 'I') {
                     carouselModal.displayModal()
                     carouselModal.createCarousel(elem.dataset.id)
                 }
             })
         })
 
-        nextCarousel.addEventListener("click", e =>{
+        /**
+         *
+         *
+         * @param {*} e
+         */
+        function nextPrevious(e) {
             e.preventDefault()
-            
-            
-            if(e.target.classList.contains('fa-chevron-right')){    
+
+            if (e.target.classList.contains('fa-chevron-right')) {
                 carouselModal.nextMedia()
             }
-            if(e.target.classList.contains('fa-chevron-left')){
+            if (e.target.classList.contains('fa-chevron-left')) {
                 carouselModal.previousMedia()
             }
+        }
 
+        document.addEventListener('keydown', (e) => {
+            console.log(e.key)
+            if (e.key === 'ArrowRight') {
+                console.log(e.key)
+                carouselModal.nextMedia()
+            } else if (e.key === 'ArrowLeft') {
+                console.log(e.key)
+                carouselModal.previousMedia()
+            } else if (e.key === 'Escape') {
+                carouselModal.closeModal()
+            }
         })
 
-        closeCarousel.addEventListener("click", e => {
+        nextPreviousCarousel.addEventListener('click', nextPrevious)
+
+        closeCarousel.addEventListener('click', (e) => {
             e.preventDefault()
-            
+
             carouselModal.closeModal()
         })
-
     }
 }
 

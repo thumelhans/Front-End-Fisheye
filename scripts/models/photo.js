@@ -1,5 +1,15 @@
+/**
+ *
+ *
+ * @class Photo
+ */
 class Photo {
-    constructor(data){
+    /**
+     * Creates an instance of Photo.
+     * @param {*} data
+     * @memberof Photo
+     */
+    constructor(data) {
         this._photographerId = data.photographerId
         this._id = data.id
         this._title = data.title
@@ -11,55 +21,107 @@ class Photo {
         this._date = data.date
     }
 
-    get photographerId(){
+    /**
+     *
+     *
+     * @readonly
+     * @memberof Photo
+     */
+    get photographerId() {
         return this._photographerId
     }
 
-    get id(){
+    /**
+     *
+     *
+     * @readonly
+     * @memberof Photo
+     */
+    get id() {
         return this._id
     }
 
-    get title(){
+    /**
+     *
+     *
+     * @readonly
+     * @memberof Photo
+     */
+    get title() {
         return this._title
     }
 
-    get image(){
-        if(this._video){
-            return{
-                type: "video",
-                path: `${this._mediaPath}/${this._video}`
-            } 
-        }else{
+    /**
+     *
+     *
+     * @readonly
+     * @memberof Photo
+     */
+    get image() {
+        if (this._video) {
             return {
-                type: "image",
-                path: `${this._mediaPath}/${this._image}`
+                type: 'video',
+                path: `${this._mediaPath}/${this._video}`,
             }
-            
+        } else {
+            return {
+                type: 'image',
+                path: `${this._mediaPath}/${this._image}`,
+            }
         }
     }
-    
-    get thumbnail(){
-        if(this._video){
-            this.videoThumbnail = this._video.replace("mp4", "jpg");
-            return `${this._mediaPath}/thumbnail/thumb_${this.videoThumbnail}`;
-        }else{
+
+    /**
+     *
+     *
+     * @readonly
+     * @memberof Photo
+     */
+    get thumbnail() {
+        if (this._video) {
+            this.videoThumbnail = this._video.replace('mp4', 'jpg')
+            return `${this._mediaPath}/thumbnail/thumb_${this.videoThumbnail}`
+        } else {
             return `${this._mediaPath}/thumbnail/thumb_${this._image}`
         }
     }
-    
-    get likes(){
+
+    /**
+     *
+     *
+     * @readonly
+     * @memberof Photo
+     */
+    get likes() {
         return this._likes
     }
-    
-    get price(){
+
+    /**
+     *
+     *
+     * @readonly
+     * @memberof Photo
+     */
+    get price() {
         return this._price
     }
-    
-    get date(){
+
+    /**
+     *
+     *
+     * @readonly
+     * @memberof Photo
+     */
+    get date() {
         return this._date
     }
 
+    /**
+    *
+    * @param {*} elem
+    * @memberof Photo
+    */
     set addLikes(elem) {
-          this._likes = elem
-      }
+        this._likes = elem
+    }
 }

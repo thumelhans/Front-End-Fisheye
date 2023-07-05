@@ -1,11 +1,27 @@
-class PhotographCard{
-    constructor(photograph){
+/**
+ *
+ *
+ * @class PhotographCard
+ */
+class PhotographCard {
+    /**
+     * Creates an instance of PhotographCard.
+     * @param {*} photograph
+     * @memberof PhotographCard
+     */
+    constructor(photograph) {
         this._photograph = photograph
     }
 
-    createCard(){
-        const container = document.createElement('article') 
-        container.classList.add("photographer", this._photograph.id)
+    /**
+     *
+     *
+     * @return {*}
+     * @memberof PhotographCard
+     */
+    createCard() {
+        const container = document.createElement('article')
+        container.classList.add('photographer', this._photograph.id)
 
         const photographCard = `
             <a href="photographer.html?id=${this._photograph.id}">
@@ -23,10 +39,16 @@ class PhotographCard{
         return container
     }
 
-    createProfile(querry){
+    /**
+     *
+     *
+     * @param {*} querry
+     * @memberof PhotographCard
+     */
+    createProfile(querry) {
         const infoContainer = document.createElement('article')
         const photoContainer = document.createElement('article')
-        
+
         const photographInfoHTML = `
             <h2 class="profile-name">
                ${this ._photograph.name}
@@ -37,10 +59,10 @@ class PhotographCard{
         const photographProfileImageHTML = `
             <img src="${this._photograph.thumbnail}" alt="">
         `
-        
+
         infoContainer.innerHTML = photographInfoHTML
         photoContainer.innerHTML = photographProfileImageHTML
-        
+
         querry.append(photoContainer)
         querry.prepend(infoContainer)
     }
