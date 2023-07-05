@@ -17,7 +17,9 @@ class App {
         this._mediaContainerQuery = document.querySelector('.media-container')
         this._counterQuery = document.querySelector('.likes-container')
         this._photographers = new PhotographerApi('./data/photographers.json')
+        this._ghpPhotographers = new PhotographerApi(`${this._deployedProject}./data/photographers.json`)
         this._medium = new MediumApi('./data/photographers.json')
+        this._ghpMedium = new MediumApi(`${this._deployedProject}./data/photographers.json`)
     }
 
     /**
@@ -27,8 +29,17 @@ class App {
     */
     async main() {
         // Récupération des informations présent dans le fichier JSON
-        const photographerData = await this._photographers.getPhotographer()
-        const mediumData = await this._medium.getMedium()
+        let photographerData
+        let mediumData
+        if (
+            this._locationUrl.pathname === `${this.deployedProject}/` ||
+            this._locationUrl.pathname === `/${this.deployedProject}/index.html`) {
+            photographerData = await this._ghpPhotographers.getPhotographer()
+            mediumData = await this._ghpMedium.getMedium()
+        } else {
+            photographerData = await this._photographers.getPhotographer()
+            mediumData = await this._medium.getMedium()
+        }
 
         // construction du tableau des photographes et des médium
         const photographers = photographerData.map((photograph) => new PhotographFactory(photograph, 'photographers'))
