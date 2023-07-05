@@ -17,7 +17,7 @@ class Photographer {
         this._tagline = data.tagline
         this._price = data.price
         this._portrait = data.portrait.split('.')
-        this._portraitPath = `/assets/photographers/${this._id}/portrait`
+        this._portraitPath = `./assets/photographers/${this._id}/portrait`
     }
 
     /**
