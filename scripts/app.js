@@ -159,6 +159,13 @@ class App {
                         carouselModal.createCarousel(elem.dataset.id)
                     }
                 })
+                elem.addEventListener('keydown', (e)=> {
+                    if (e.key === 'Enter') {
+                        console.log('J appuie sur: ', e.key, ' pour ouvrir le carousel.')
+                        carouselModal.displayModal()
+                        carouselModal.createCarousel(elem.dataset.id)
+                    }
+                })
             })
 
             const closeCarousel = document.querySelector('.carousel-container button')
@@ -181,14 +188,14 @@ class App {
             }
 
             document.addEventListener('keydown', (e) => {
-                console.log(e.key)
                 if (e.key === 'ArrowRight') {
-                    console.log(e.key)
+                    console.log('J appuie sur: ', e.key, 'pour afficher l image suivante')
                     carouselModal.nextMedia()
                 } else if (e.key === 'ArrowLeft') {
-                    console.log(e.key)
+                    console.log('J appuie sur: ', e.key, 'pour afficher l image précédente')
                     carouselModal.previousMedia()
                 } else if (e.key === 'Escape') {
+                    console.log('J appuie sur : ', e.key, ' pour quitter.')
                     carouselModal.closeModal()
                 }
             })

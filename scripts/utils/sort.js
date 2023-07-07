@@ -7,7 +7,7 @@ const mediumContainer = document.querySelector('.media-container')
 const sortFunctions = {
     like: (a, b) => b.dataset.likes - a.dataset.likes,
     title: (a, b) => a.dataset.title.localeCompare(b.dataset.title),
-    date: (a, b) => new Date(b.dataset.date) - new Date(a.dataset.date)
+    date: (a, b) => new Date(b.dataset.date) - new Date(a.dataset.date),
 }
 
 /**
@@ -35,9 +35,13 @@ function handleClick(event) {
 
     const target = event.target
     const targetParentNode = target.parentNode
+    console.log(target)
+    console.log(targetParentNode)
 
     targetParentNode.prepend(target)
     newLiQuery = document.querySelectorAll('.sorting-ul li')
+
+    console.log(newLiQuery)
 
     target.classList.add('firstElem')
 
@@ -143,6 +147,79 @@ sortContainer.addEventListener('click', (e) => {
     })
 })
 
+sortContainer.addEventListener('keydown', (e)=> {
+    // e.preventDefault()
+
+    if (e.key === 'Enter') {
+        if (newLiQuery === undefined) {
+            sortQuery.forEach((elem) => {
+                if (elem.classList.contains('firstElem')) {
+                    elem.classList.remove('firstElem')
+                } else {
+                    elem.classList.toggle('hidden')
+                }
+            })
+        } else {
+            if (!sortContainer.classList.contains('open')) {
+                newLiQuery.forEach((elem) => {
+                    if (elem.classList.contains('firstElem')) {
+                        elem.classList.remove('firstElem')
+                    } else {
+                        elem.classList.toggle('hidden')
+                    }
+                })
+            } else {
+                newLiQuery.forEach((elem) => {
+                    if (!elem.classList.contains('firstElem')) {
+                        elem.classList.toggle('hidden')
+                    }
+                })
+            }
+        }
+
+        sortContainer.classList.toggle('open')
+
+        if (sortContainer.classList.contains('open')) {
+            const firstOption = sortContainer.querySelector('.sorting-ul li:first-child')
+            if (firstOption) {
+                firstOption.focus()
+                firstOption.classList.add('focused')
+            }
+        }
+
+        iconQuery.classList.toggle('icon-rotate')
+        if (sortContainer.classList.contains('open')) {
+            sortQuery.forEach((sort) => {
+                sort.removeEventListener('keydown', handleClick)
+                sort.addEventListener('keydown', (e) =>{
+                    if (e.key === 'Enter') {
+                        handleClick(e)
+                    }
+                })
+            })
+        }
+    } else if (e.key === 'ArrowUp' && sortContainer.classList.contains('open')) {
+        const currentOption = sortContainer.querySelector('.sorting-ul li[aria-selected="true"]')
+        const previousOption = currentOption.previousElementSibling
+        if (previousOption) {
+            currentOption.setAttribute('aria-selected', 'false')
+            previousOption.setAttribute('aria-selected', 'true')
+            previousOption.classList.add('focused')
+            currentOption.classList.remove('focused')
+            previousOption.focus()
+        }
+    } else if (e.key === 'ArrowDown' && sortContainer.classList.contains('open')) {
+        const currentOption = sortContainer.querySelector('.sorting-ul li[aria-selected="true"]')
+        const nextOption = currentOption.nextElementSibling
+        if (nextOption) {
+            currentOption.setAttribute('aria-selected', 'false')
+            nextOption.setAttribute('aria-selected', 'true')
+            nextOption.classList.add('focused')
+            currentOption.classList.remove('focused')
+            nextOption.focus()
+        }
+    }
+})
 /**
  *
  *

@@ -34,12 +34,12 @@ class MediumCard {
         container.dataset.type = this._photo.video ? 'video' : 'photo'
 
         const mediaCard = `
-            <a href="#" class="medium-container" aria-label="Représente la ${this._photoType ===
+            <div class="medium-container" aria-label="Représente la ${this._photoType ===
                 'video' ? 'vidéo' : 'photo'} ${this._photo.title}">
                 ${this._photoType ===
                     'video' ? '<i class="fa-solid fa-video"></i>' : ''}
-                <img src="${this._photo.thumbnail}" alt="${this._photo.title}">
-            </a>
+                <img src="${this._photo.thumbnail}" alt="${this._photo.title}" tabindex="0">
+            </div>
             <div class="media-info">
                 <p>${this._photo.title}</p>
                 <div class="media-likes" role="group" aria-label="Informations de la ${this._photoType ===

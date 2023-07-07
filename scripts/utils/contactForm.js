@@ -114,10 +114,6 @@ function sendContact() {
     }
 
     if (formValidation) {
-        const response = window.confirm('Votre message a été envoyé!')
-
-        if (response) {
-            closeModal()
-        }
+        closeModal()
     }
 }

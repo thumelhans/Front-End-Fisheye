@@ -264,6 +264,10 @@ form textarea{
     padding: 14px 0px;
 }
 
+.focused{
+    border: #32de84 solid 4px;
+}
+
 .sorting-ul li:nth-child(n+2):nth-child(-n+3) {
     margin-top: 10px;
     border-top:white solid 1px;

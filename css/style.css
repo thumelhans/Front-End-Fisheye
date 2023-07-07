@@ -6,6 +6,16 @@
     padding: 0;
 }
 
+*:focus-visible{
+    border: #8E93F1 solid 5px;
+    outline: none;
+}
+
+img:focus-visible{
+    border: #8E93F1 solid 5px;
+    transform: scale(1,1);
+}
+
 ul,ol,li,a{
     list-style: none;
     text-decoration: none;
@@ -71,13 +81,13 @@ h1 {
 
 .photographer-place{
     color: #901C1C;
-    font-size: 0.813rem;
+    font-size: 1.2rem;
 }
 .photographer-tagline{
     color: black;
-    font-size: 0.625rem;
+    font-size: 1.1rem;
 }
 .photographer-price{
-    font-size: 0.563rem;
+    font-size: 1rem;
     color: #757575;
 }
