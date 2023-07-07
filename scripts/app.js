@@ -147,7 +147,6 @@ class App {
 
         // Gestion de la lightbox affichant les photos une par une.
         if (this._idUrl.length > 1) {
-            console.log('Carousel dans if', carouselCard)
             const mediumContentQuery = document.querySelectorAll('.media-content')
 
             const carouselModal = new Carousel(carouselCard)

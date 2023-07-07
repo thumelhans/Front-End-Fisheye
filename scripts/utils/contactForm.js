@@ -82,6 +82,10 @@ function formFieldValidation() {
 
                 const errorElement = document.createElement('div')
                 errorElement.classList.add('field-error-message')
+                Object.assign(errorElement, {
+                    role: 'alert',
+                    ariaLive: 'assertive',
+                })
                 errorElement.innerText = 'Champ invalide'
 
                 field.parentNode.insertBefore(errorElement, field)
