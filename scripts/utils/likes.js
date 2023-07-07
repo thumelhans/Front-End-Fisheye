@@ -48,7 +48,8 @@ class Likes {
         const likeNode = document.createElement('div')
         likeNode.classList.add('sum-of-likes')
 
-        const photographLikes = `<h2>${sumOfLikes} <i class="fa-solid fa-heart" id="sum-of-like"></i></h2>`
+        const photographLikes = `<h2 role="heading" aria-level="2">
+            ${sumOfLikes} <i class="fa-solid fa-heart" id="sum-of-like"></i></h2>`
 
         likeNode.innerHTML= photographLikes
 

@@ -31,8 +31,8 @@
           </div>
         </div>
       </section>
-      <section class="media-container" role="list" aria-label="Galerie de photos"></section> <!-- TODO géré le role listitem pour les photo de la galerie -->
-      <section class="contact_modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-label">
+      <section class="media-container" role="presentation" aria-label="Galerie de photos"></section> <!-- TODO géré le role listitem pour les photo de la galerie -->
+      <section class="contact_modal" role="dialog" aria-modal="true" aria-label="Formulaire de contact">
         <div class="modal">
           <header>
             <h2 id="contact-modal-label">Contactez-moi</h2>
@@ -59,7 +59,7 @@
           </form>
         </div>
       </section>
-      <section class="carousel_modal" role="dialog" aria-modal="true" aria-labelledby="carousel-modal-label"> <!-- TODO géré l'aria-label sur les photo de la galerie pour avoir la même valeur -->
+      <section class="carousel_modal" role="dialog" aria-modal="true" aria-label="Carousel de photo" aria-hidden="true"><!-- TODO géré l'aria-hidden -->
         <div class="carousel-container">
           <header>
             <button aria-label="Fermer la modal">
@@ -72,7 +72,7 @@
           </div>
         </div>
       </section>
-      <section class="likes-container" role="status" aria-live="polite" aria-atomic="true" ></section> <!-- TODO géré l'aria-label des like et du TJM -->
+      <section class="likes-container" role="status" aria-live="polite" aria-atomic="true" ></section>
     </main>
     
     <!-- Models -->
