@@ -34,7 +34,7 @@ class MediumCard {
         container.dataset.type = this._photo.video ? 'video' : 'photo'
 
         const mediaCard = `
-            <div class="medium-container" role="figure" aria-label="carousel-modal-label">
+            <div class="medium-container" role="listitem" aria-label="carousel-modal-label">
                 ${this._photoType ===
                     'video' ? '<i class="fa-solid fa-video"></i>' : ''}
                 <img src="${this._photo.thumbnail}" alt="${this._photo.title}">
@@ -84,7 +84,7 @@ class MediumCard {
         const carouselCard = `
         ${mediaContent}
         <div class="media-info" role="presentation">
-        <p role="heading" aria-level="2">${this._photo.title}</p>
+        <h2 role="heading" aria-level="2">${this._photo.title}</h2>
         </div>
         `
 
