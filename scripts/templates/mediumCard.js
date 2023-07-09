@@ -1,12 +1,12 @@
 /**
-*
+* Classe gérant la mise en forme HTML des éléments photo et vidéo selon qu'on soit sur la page du photographe ou dans le carousel
 *
 * @class MediumCard
 */
 class MediumCard {
     /**
      * Creates an instance of MediumCard.
-     * @param {*} photo
+     * @param {*} photo Data d'un média précis
      * @memberof MediumCard
      */
     constructor(photo) {
@@ -15,9 +15,9 @@ class MediumCard {
         this._photoType = photo.image.type
     }
     /**
+    * Fonction gérant la création de la carte du media avec la photo/vidéo, son titre et le nombre de like
     *
-    *
-    * @return {*}
+    * @return {*} L'élément HTML
     * @memberof MediumCard
     */
     createCard() {
@@ -59,9 +59,9 @@ class MediumCard {
     }
 
     /**
+    * Fonction gérant la présentation du média dans le carousel avec la photo/vidéo et son titre
     *
-    *
-    * @return {*}
+    * @return {*} L'élement HTML
     * @memberof MediumCard
     */
     carouselCard() {

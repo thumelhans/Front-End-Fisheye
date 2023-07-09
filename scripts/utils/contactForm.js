@@ -1,31 +1,35 @@
+const modal = document.querySelector('.contact_modal')
+const formQuery = document.querySelector('form')
+const firstField = document.querySelector('#firstname')
+const errorMessages = document.querySelectorAll('.field-error-message')
+const contactModalButton = document.querySelector('.contact_button')
+
 /**
- *
- *
- */
+ * Fonction gérant l'ouverture de la modal
+*
+*/
 function displayModal() {
-    const modal = document.querySelector('.contact_modal')
     modal.classList.add('modal-display')
+    firstField.focus()
 }
 
 /**
- *
- *
- */
+ * Fonction gérant la fermeture de la modal
+*
+*/
 function closeModal() {
-    const modal = document.querySelector('.contact_modal')
-    const formQuery = document.querySelector('form')
-
     modal.classList.remove('modal-display')
     formQuery.reset()
+    contactModalButton.focus()
 }
 
 /**
- *
- *
- * @param {*} name
- * @param {*} value
- * @return {*}
- */
+ * Fonction gérant le test de la valeur de champ
+*
+* @param {*} name
+* @param {*} value
+* @return {*} True si le test est valide
+*/
 function formRegexTest(name, value) {
     const nameRegex = /^[a-zA-Z\- ]+$/ 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -61,16 +65,14 @@ function formRegexTest(name, value) {
     }
 }
 
-const formQuery = document.querySelector('form')
 /**
- *
+ * Fonction gérant la validité des champs
 *
-* @return {*}
+* @return {*} True quand les champs sont valide
 */
 function formFieldValidation() {
     let isValid = true
 
-    const errorMessages = document.querySelectorAll('.field-error-message')
     errorMessages.forEach((errorMessage) => errorMessage.remove())
 
     for (field of formQuery) {
@@ -101,9 +103,9 @@ function formFieldValidation() {
 }
 
 /**
- *
- *
- */
+ * Fonction gérent l'envoie des données du formulaire et la fermeture de la modal
+*
+*/
 function sendContact() {
     const formValidation = formFieldValidation()
 
@@ -117,3 +119,10 @@ function sendContact() {
         closeModal()
     }
 }
+
+// Event listener gérant la fermeture de la modal au clavier sans nécessairement avoir de champ rempli
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('modal-display')) {
+        closeModal()
+    }
+})

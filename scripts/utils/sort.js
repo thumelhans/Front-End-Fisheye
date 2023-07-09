@@ -11,7 +11,7 @@ const sortFunctions = {
 }
 
 /**
- *
+ * Fonction gérant le changement d'ordre des photos
  *
  * @param {*} container
  * @param {*} sortFunction
@@ -26,24 +26,13 @@ function reorderFlexboxElements(container, sortFunction) {
 }
 
 /**
+ * Fonction gérant l'orientation du tri
  *
- *
- * @param {*} event
+ * @param {*} target
  */
-function handleClick(event) {
-    event.preventDefault()
-
-    const target = event.target
-    const targetParentNode = target.parentNode
-    console.log(target)
-    console.log(targetParentNode)
-
-    targetParentNode.prepend(target)
+function sort(target) {
+    target.parentNode.prepend(target)
     newLiQuery = document.querySelectorAll('.sorting-ul li')
-
-    console.log(newLiQuery)
-
-    target.classList.add('firstElem')
 
     if (target.textContent === 'Date') {
         reorderFlexboxElements(mediumContainer, sortFunctions.date)
@@ -58,174 +47,124 @@ function handleClick(event) {
     }
 }
 
+// Gestion du tri avec la souris
+
 sortContainer.addEventListener('click', (e) => {
-    e.preventDefault()
+    openCloseSortMenu(e)
+})
 
-    const clickTarget = e.target
-
-    if (sortContainer.classList.contains('open') && clickTarget.classList.contains('sorting-ul')) {
-        return
+sortContainer.addEventListener('keydown', (e) => {
+    const firstOption = sortContainer.querySelector('.sorting-ul li:first-child')
+    console.log(firstOption)
+    if (e.key === 'Enter') {
+        openCloseSortMenu(e)
+        sort(e.target)
+        if (firstOption) {
+            firstOption.focus()
+            firstOption.classList.add('focused')
+        }
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        navigateOptions(e)
     }
+})
 
-    if (sortContainer.classList.contains('open') && clickTarget.classList.contains('fa-chevron-down')) {
-        sortQuery.forEach((elem, index) => {
+/**
+ * Fonction gérant l'ouverture et la fermeture du menu
+ *
+ * @param {*} event
+ */
+function openCloseSortMenu(event) {
+    if (sortContainer.classList.contains('open')) {
+        console.log('Ceci est l event', event)
+        sort(event.target)
+        newLiQuery.forEach((sortElem, index) => {
             if (index > 0) {
-                elem.classList.toggle('hidden')
+                sortElem.classList.toggle('hidden')
             } else {
-                elem.classList.toggle('firstElem')
-            }
-        })
-        sortContainer.classList.toggle('open')
-        iconQuery.classList.toggle('icon-rotate')
-
-        return
-    }
-
-    if (newLiQuery === undefined) {
-        sortQuery.forEach((elem) => {
-            if (elem.classList.contains('firstElem')) {
-                elem.classList.remove('firstElem')
-            } else {
-                elem.classList.toggle('hidden')
+                sortElem.classList.toggle('firstElem')
             }
         })
     } else {
-        if (!sortContainer.classList.contains('open')) {
-            newLiQuery.forEach((elem) => {
-                if (elem.classList.contains('firstElem')) {
-                    elem.classList.remove('firstElem')
+        if (newLiQuery !==undefined) {
+            newLiQuery.forEach((sortElem, index) => {
+                if (index > 0) {
+                    sortElem.classList.toggle('hidden')
                 } else {
-                    elem.classList.toggle('hidden')
+                    sortElem.classList.toggle('firstElem')
                 }
             })
         } else {
-            newLiQuery.forEach((elem) => {
-                if (!elem.classList.contains('firstElem')) {
-                    elem.classList.toggle('hidden')
+            sortQuery.forEach((sortElem, index) => {
+                if (index > 0) {
+                    sortElem.classList.toggle('hidden')
+                } else {
+                    sortElem.classList.toggle('firstElem')
                 }
             })
         }
     }
-
-    sortContainer.classList.toggle('open')
 
     iconQuery.classList.toggle('icon-rotate')
-    if (sortContainer.classList.contains('open')) {
-        sortQuery.forEach((sort) => {
-            sort.removeEventListener('click', handleClick)
-            sort.addEventListener('click', handleClick)
+    sortContainer.classList.toggle('open')
+
+    if (event.key === 'Enter' && !sortContainer.classList.contains('open')) {
+        console.log('C est la touche Entrer')
+        const sortingUl = document.querySelector('.sorting-ul')
+        sortingUl.focus()
+        newLiQuery.forEach((elem) => {
+            elem.classList.remove('focused')
         })
     }
+}
 
-    document.addEventListener('click', (e) => {
-        e.preventDefault()
-        const target = e.target
-        const newLiOrder = document.querySelectorAll('.sorting-ul li')
+// Event listener gérant la fermeture du menu de tri quand on clique en dehors de ce menu
+document.addEventListener('click', (e) => {
+    if (!sortContainer.contains(e.target) && sortContainer.classList.contains('open')) {
+        const tempLiQuery = document.querySelectorAll('.sorting-ul li')
 
-        if (sortContainer.classList.contains('open') && !sortContainer.contains(target)) {
-            if (sortQuery === newLiOrder) {
-                sortQuery.forEach((elem, index) => {
-                    if (index > 0) {
-                        elem.classList.toggle('hidden')
-                    } else {
-                        elem.classList.toggle('firstElem')
-                    }
-                })
+        tempLiQuery.forEach((sortElem, index) => {
+            if (index > 0) {
+                sortElem.classList.toggle('hidden')
             } else {
-                newLiOrder.forEach((elem, index) => {
-                    if (index > 0) {
-                        elem.classList.toggle('hidden')
-                    } else {
-                        elem.classList.toggle('firstElem')
-                    }
-                })
+                sortElem.classList.toggle('firstElem')
             }
-
-            sortContainer.classList.remove('open')
-            iconQuery.classList.remove('icon-rotate')
-        }
-    })
-})
-
-sortContainer.addEventListener('keydown', (e)=> {
-    // e.preventDefault()
-
-    if (e.key === 'Enter') {
-        if (newLiQuery === undefined) {
-            sortQuery.forEach((elem) => {
-                if (elem.classList.contains('firstElem')) {
-                    elem.classList.remove('firstElem')
-                } else {
-                    elem.classList.toggle('hidden')
-                }
-            })
-        } else {
-            if (!sortContainer.classList.contains('open')) {
-                newLiQuery.forEach((elem) => {
-                    if (elem.classList.contains('firstElem')) {
-                        elem.classList.remove('firstElem')
-                    } else {
-                        elem.classList.toggle('hidden')
-                    }
-                })
-            } else {
-                newLiQuery.forEach((elem) => {
-                    if (!elem.classList.contains('firstElem')) {
-                        elem.classList.toggle('hidden')
-                    }
-                })
-            }
-        }
-
-        sortContainer.classList.toggle('open')
-
-        if (sortContainer.classList.contains('open')) {
-            const firstOption = sortContainer.querySelector('.sorting-ul li:first-child')
-            if (firstOption) {
-                firstOption.focus()
-                firstOption.classList.add('focused')
-            }
-        }
-
-        iconQuery.classList.toggle('icon-rotate')
-        if (sortContainer.classList.contains('open')) {
-            sortQuery.forEach((sort) => {
-                sort.removeEventListener('keydown', handleClick)
-                sort.addEventListener('keydown', (e) =>{
-                    if (e.key === 'Enter') {
-                        handleClick(e)
-                    }
-                })
-            })
-        }
-    } else if (e.key === 'ArrowUp' && sortContainer.classList.contains('open')) {
-        const currentOption = sortContainer.querySelector('.sorting-ul li[aria-selected="true"]')
-        const previousOption = currentOption.previousElementSibling
-        if (previousOption) {
-            currentOption.setAttribute('aria-selected', 'false')
-            previousOption.setAttribute('aria-selected', 'true')
-            previousOption.classList.add('focused')
-            currentOption.classList.remove('focused')
-            previousOption.focus()
-        }
-    } else if (e.key === 'ArrowDown' && sortContainer.classList.contains('open')) {
-        const currentOption = sortContainer.querySelector('.sorting-ul li[aria-selected="true"]')
-        const nextOption = currentOption.nextElementSibling
-        if (nextOption) {
-            currentOption.setAttribute('aria-selected', 'false')
-            nextOption.setAttribute('aria-selected', 'true')
-            nextOption.classList.add('focused')
-            currentOption.classList.remove('focused')
-            nextOption.focus()
-        }
+        })
     }
 })
+
 /**
- *
- *
- * @param {*} target
- * @param {*} values
- */
-const hiddenToggle = (target, values) => {
-    values.forEach((value) => target.classList.toggle(value))
+* Fonction de navigation avec le clavier entre les options du menu
+*
+* @param {*} event
+*/
+function navigateOptions(event) {
+    const currentOption = sortContainer.querySelector('.sorting-ul li.focused')
+    const firstOption = sortContainer.querySelector('.sorting-ul li:first-child')
+    const lastOption = sortContainer.querySelector('.sorting-ul li:last-child')
+
+    if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        if (currentOption === firstOption) {
+            lastOption.focus()
+            lastOption.classList.add('focused')
+            currentOption.classList.remove('focused')
+        } else {
+            const previousOption = currentOption.previousElementSibling
+            previousOption.focus()
+            previousOption.classList.add('focused')
+            currentOption.classList.remove('focused')
+        }
+    } else if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        if (currentOption === lastOption) {
+            firstOption.focus()
+            firstOption.classList.add('focused')
+            currentOption.classList.remove('focused')
+        } else {
+            const nextOption = currentOption.nextElementSibling
+            nextOption.focus()
+            nextOption.classList.add('focused')
+            currentOption.classList.remove('focused')
+        }
+    }
 }

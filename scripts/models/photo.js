@@ -1,12 +1,12 @@
 /**
- *
+ * Classe permettant la manipulation des datas des médium
  *
  * @class Photo
  */
 class Photo {
     /**
      * Creates an instance of Photo.
-     * @param {*} data
+     * @param {*} data Data brut récupéré depuis le factory
      * @memberof Photo
      */
     constructor(data) {

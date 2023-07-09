@@ -1,12 +1,12 @@
 /**
- *
+ * Classe gérant la création et la manipulation du carousel
  *
  * @class Carousel
  */
 class Carousel {
     /**
      * Creates an instance of Carousel.
-     * @param {*} contentArray
+     * @param {*} contentArray Tableau des photos/vidéo
      * @memberof Carousel
      */
     constructor(contentArray) {
@@ -14,6 +14,7 @@ class Carousel {
         this._modalContainer = document.querySelector('.carousel-container')
         this._modalContent = contentArray
         this._mediaIndex = null
+        this._modalVisible = false
     }
 
     /**
@@ -24,6 +25,7 @@ class Carousel {
     displayModal() {
         this._modalContainer.classList.add('modal-display')
         this._modalQuery.classList.add('modal-display')
+        this._modalVisible = true
     }
 
     /**
@@ -34,6 +36,7 @@ class Carousel {
     closeModal() {
         this._modalContainer.classList.remove('modal-display')
         this._modalQuery.classList.remove('modal-display')
+        this._modalVisible = false
         const carouselMediaQuery = document.querySelector('.carousel-media')
         carouselMediaQuery.remove()
     }
@@ -83,5 +86,15 @@ class Carousel {
         }
 
         this._modalContainer.append(this._modalContent[this._mediaIndex])
+    }
+
+    /**
+     *
+     *
+     * @return {_modalVisible} State of Visibility
+     * @memberof Carousel
+     */
+    isModalVisible() {
+        return this._modalVisible
     }
 }

@@ -1,12 +1,12 @@
 /**
- *
+ * Classe gérant la mise en forme HTML des éléments du photograph selon qu'on soit sur la page index ou celle du photographe
  *
  * @class PhotographCard
  */
 class PhotographCard {
     /**
      * Creates an instance of PhotographCard.
-     * @param {*} photograph
+     * @param {*} photograph Data d'un photographe
      * @memberof PhotographCard
      */
     constructor(photograph) {
@@ -14,7 +14,7 @@ class PhotographCard {
     }
 
     /**
-     *
+     * Fonction créant l'élément HTML de présentation du photographe sur la page index
      *
      * @return {*}
      * @memberof PhotographCard
@@ -48,9 +48,9 @@ class PhotographCard {
     }
 
     /**
+     * Fonction gérant la création de l'élément HTML du profil du photographe sur la page du photographe
      *
-     *
-     * @param {*} querry
+     * @param {*} querry Correspond à l'élément dans lequel le profil sera intégré
      * @memberof PhotographCard
      */
     createProfile(querry) {

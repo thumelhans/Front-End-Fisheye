@@ -1,12 +1,12 @@
 /**
- *
+ * Class récupérant les données dans le fichier ./data/photographers.json
  *
  * @class Api
  */
 class Api {
     /**
      * Creates an instance of Api.
-     * @param {*} url
+     * @param {*} url destination du fichier JSON
      * @memberof Api
      */
     constructor(url) {
@@ -14,7 +14,7 @@ class Api {
     }
 
     /**
-     *
+     * Récupère la promesses des datas
      *
      * @return {*}
      * @memberof Api
@@ -27,7 +27,7 @@ class Api {
 }
 
 /**
- *
+ * Traîte les données des photographes
  *
  * @class PhotographerApi
  * @extends {Api}
@@ -43,7 +43,7 @@ class PhotographerApi extends Api {
     }
 
     /**
-     *
+     * Récupère les datas des photographes
      *
      * @return {*}
      * @memberof PhotographerApi
@@ -54,7 +54,7 @@ class PhotographerApi extends Api {
 }
 
 /**
- *
+ * Traîte les données des médium (photos et vidéos)
  *
  * @class MediumApi
  * @extends {Api}
@@ -70,7 +70,7 @@ class MediumApi extends Api {
     }
 
     /**
-     *
+     * Récupère les datas photos et vidéos
      *
      * @return {*}
      * @memberof MediumApi

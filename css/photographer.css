@@ -174,7 +174,7 @@ form textarea{
     border-radius: 5px;
 }
 
-.media-info{ /*TODO Comment gérer les titres trop long?*/
+.media-info{
     height: 30px;
     max-width: 100%;
     display: flex;
@@ -262,10 +262,6 @@ form textarea{
 
 .sorting-ul li{
     padding: 14px 0px;
-}
-
-.focused{
-    border: #32de84 solid 4px;
 }
 
 .sorting-ul li:nth-child(n+2):nth-child(-n+3) {
@@ -388,5 +384,3 @@ form textarea{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-/* TODO Faire le CSS de présentation de média sur le carousel */

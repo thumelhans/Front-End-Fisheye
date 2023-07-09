@@ -1,5 +1,5 @@
 /**
-*
+* Class principal gérant le coeur du site
 *
 * @class App
 */
@@ -17,13 +17,11 @@ class App {
         this._mediaContainerQuery = document.querySelector('.media-container')
         this._counterQuery = document.querySelector('.likes-container')
         this._photographers = new PhotographerApi('./data/photographers.json')
-        this._ghpPhotographers = new PhotographerApi(`./${this._deployedProject}/photographers.json`)
         this._medium = new MediumApi('./data/photographers.json')
-        this._ghpMedium = new MediumApi(`./${this._deployedProject}/photographers.json`)
     }
 
     /**
-    *
+    * Fonction principale
     *
     * @memberof App
     */
@@ -95,8 +93,8 @@ class App {
                             newLikes++
 
                             const likesArrayIndex =
-                                likesArray.indexOf(likesArray.find((elem) => parseInt(elem.photoID) == selectedPhotoId))
-                                likesArray[likesArrayIndex].numOfLike++
+                            likesArray.indexOf(likesArray.find((elem) => parseInt(elem.photoID) == selectedPhotoId))
+                            likesArray[likesArrayIndex].numOfLike++
                             medium.forEach((elem) => {
                                 if (elem.id === selectedPhotoId) {
                                     elem.addLikes = newLikes
@@ -172,7 +170,7 @@ class App {
             const nextPreviousCarousel = document.querySelector('.next-previous')
 
             /**
-             *
+            * Fonction gérant le changement des photos/videos présentées dans le carousel
             *
             * @param {*} e
             */
@@ -187,25 +185,36 @@ class App {
                 }
             }
 
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
-                    console.log('J appuie sur: ', e.key, 'pour afficher l image suivante')
-                    carouselModal.nextMedia()
-                } else if (e.key === 'ArrowLeft') {
-                    console.log('J appuie sur: ', e.key, 'pour afficher l image précédente')
-                    carouselModal.previousMedia()
-                } else if (e.key === 'Escape') {
-                    console.log('J appuie sur : ', e.key, ' pour quitter.')
-                    carouselModal.closeModal()
-                }
-            })
-
+            // Evènement gérant le changement de photo/vidéo dans le carousel
             nextPreviousCarousel.addEventListener('click', nextPrevious)
 
+            // Evènement gérant la fermeture du carousel
             closeCarousel.addEventListener('click', (e) => {
                 e.preventDefault()
 
                 carouselModal.closeModal()
+            })
+
+            // Evènement gérant le carousel au clavier
+            document.addEventListener('keydown', (e) => {
+                if (carouselModal.isModalVisible()) {
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        console.log('J appuie sur: ', e.key, 'pour afficher l image suivante')
+                        carouselModal.nextMedia()
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        console.log('J appuie sur: ', e.key, 'pour afficher l image précédente')
+                        carouselModal.previousMedia()
+                    } else if (e.key === 'Escape') {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        console.log('J appuie sur : ', e.key, ' pour quitter.')
+                        carouselModal.closeModal()
+                    }
+                }
             })
         }
     }

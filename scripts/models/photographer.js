@@ -1,12 +1,12 @@
 /**
- *
+ * Classe permettant la manipulation des datas des photographes
  *
  * @class Photographer
  */
 class Photographer {
     /**
      * Creates an instance of Photographer.
-     * @param {*} data
+     * @param {*} data Data brut récupéré depuis le factory
      * @memberof Photographer
      */
     constructor(data) {
