@@ -55,7 +55,6 @@ sortContainer.addEventListener('click', (e) => {
 
 sortContainer.addEventListener('keydown', (e) => {
     const firstOption = sortContainer.querySelector('.sorting-ul li:first-child')
-    console.log(firstOption)
     if (e.key === 'Enter') {
         openCloseSortMenu(e)
         sort(e.target)
